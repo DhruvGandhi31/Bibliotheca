@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 // username textfield
                 MyTextField(
                   controller: usernameController,
-                  hintText: 'Username',
+                  hintText: 'Email',
                   obscureText: false,
                   sel_icon: const Icon(Icons.account_circle_outlined),
                 ),

@@ -38,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigate() {
+    //Firebase authentication if user is already logged in.
     // if (FirebaseAuth.instance.currentUser != null) {
     //   Navigator.pushNamedAndRemoveUntil(
     //       context, HomePage.id, ModalRoute.withName('/'));
