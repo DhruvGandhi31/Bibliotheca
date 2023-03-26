@@ -17,7 +17,7 @@ class SquareTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.width * 0.15,
+            height: MediaQuery.of(context).size.height * 0.08,
             width: MediaQuery.of(context).size.width * 0.875,
             padding: const EdgeInsets.all(10),
             // margin: const EdgeInsets.symmetric(horizontal: 25),

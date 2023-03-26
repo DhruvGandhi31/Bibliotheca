@@ -10,7 +10,7 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: MediaQuery.of(context).size.width * 0.15,
+        height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width * 0.875,
         padding: const EdgeInsets.all(20),
         // margin: const EdgeInsets.symmetric(horizontal: 25),
