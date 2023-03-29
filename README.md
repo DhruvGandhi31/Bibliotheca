@@ -1,18 +1,3 @@
 # library_mangement
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-Welcome dhruv its karan here
+Please note that the SignUp feature uses MySQL database for saving a records of users. For implemeting PHP is used as backend which provides the api and service to connect to localhost. The server is hosted on XAMPP which is connected locally. If you want to test this application please download the XAMPP. And add 'api_lib_manage' which is in PHP folder to the htdocs of the downloaded location of XAMPP. 
