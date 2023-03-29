@@ -40,6 +40,8 @@ dependencies:
   #firebase auth and firebase core
   firebase_core: ^2.8.0
   firebase_auth: ^4.3.0
+  http: ^0.13.5
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

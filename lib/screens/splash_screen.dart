@@ -1,7 +1,7 @@
 import 'dart:async';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import '../users/authentication/login_page.dart';
 
 class UIConstants {
   static const double ASSUMED_SCREEN_HEIGHT = 640.0;

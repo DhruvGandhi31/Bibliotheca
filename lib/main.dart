@@ -1,7 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_management/users/authentication/login_page.dart';
 import 'screens/splash_screen.dart';
-import 'screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: LoginPage(),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         // HomePage.routeName:(context) => HomePage(),
