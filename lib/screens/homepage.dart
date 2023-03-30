@@ -31,6 +31,7 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFAAD9FF),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -40,36 +41,67 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  color: Colors.grey[200],
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Code Red',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    // color: Colors.,
+                    color: const Color(0xFF004A83),
+                    // color: const Color(0xFF4AB253)
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
                             Padding(
-                              padding: const EdgeInsets.only(right: 20),
+                              padding: EdgeInsets.only(right: 20),
                               child: Icon(Icons.person,
-                                  size: 28, color: Colors.black),
+                                  size: 28, color: Colors.white),
                             ),
-                            Icon(Icons.message, size: 28, color: Colors.black),
+                            Expanded(
+                              child: Text(
+                                'Hello User!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20),
+                              child: Icon(Icons.message,
+                                  size: 28, color: Colors.white),
+                            ),
                           ],
-                        )
-                      ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.search),
+                      ),
                     ),
                   ),
                 ),
+
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 200.0,
@@ -164,12 +196,12 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
                   },
                   child: Center(
                     child: Container(
-                      width: double.infinity,
-                      height: 60,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: 50,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 15),
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: const Color(0xFFFF5521),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
@@ -177,13 +209,39 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 22,
+                          fontSize: 18,
                         ),
                       ),
                     ),
                   ),
                 ),
-                // const SizedBox(height: 10),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {
+                    // function to call when button is pressed
+                    // print('Button pressed!');
+                  },
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Text(
+                        'Return a Book',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 //j
                 //
 
@@ -203,66 +261,94 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
                           child: Container(
                             height: 120,
                             decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: const Color(0xFFEF1C63),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Column(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  '17',
-                                  style: TextStyle(
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Icon(
+                                    Icons.book,
                                     color: Colors.white,
-                                    fontSize: 44,
-                                    fontWeight: FontWeight.bold,
+                                    size: 22.0,
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Issued Books',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      '17',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'Issued Books',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20), // SizedBox(width: 20),
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            print("Second Button");
-                            // do something when the second button is pressed
+                            // do something when the first button is pressed
+                            print("First Button");
                           },
                           child: Container(
                             height: 120,
                             decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: const Color(0xFF6339B5),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Column(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  '23',
-                                  style: TextStyle(
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Icon(
+                                    Icons.book,
                                     color: Colors.white,
-                                    fontSize: 44,
-                                    fontWeight: FontWeight.bold,
+                                    size: 22.0,
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Requested Books',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      '17',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'Issued Books',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -272,18 +358,6 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
                     ],
                   ),
                 ),
-                // const SizedBox(height: 50),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 20, top: 40),
-                //   child: Text(
-                //     'Most Popular Books',
-                //     style: TextStyle(
-                //       fontSize: 23,
-                //       fontWeight: FontWeight.bold,
-                //       color: Colors.black,
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
