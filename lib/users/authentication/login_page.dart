@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management/users/authentication/register_page.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
-import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
@@ -48,16 +47,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[300],
-        body: ProgressHUD(
-          child: Form(child: _LoginUi(context), key: globalFormKey),
-          key: UniqueKey(),
-          inAsyncCall: isAPIcallProcess,
-          opacity: 0.3,
-        ),
-      ),
-    );
+        child: Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: _LoginUi(context),
+    ));
   }
 
   Widget _LoginUi(BuildContext context) {
