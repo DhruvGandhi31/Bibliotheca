@@ -2,28 +2,26 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../api_connection/api_connection.dart';
 import '../../model/user.dart';
 import '../../utils/date_of_birth.dart';
 import '../../utils/gender_dropdown.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
-import 'dart:io';
-import 'package:hotel_management/api_connection/api_connection.dart';
 import 'package:http/http.dart' as http;
 
-// import 'package:register_page/utils/my_textfield.dart';
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
-class PersonalDetails extends StatefulWidget {
-  static String routeName = 'LoginPage';
-
-  const PersonalDetails({Key? key}) : super(key: key);
+  static String routeName = 'RegisterPage';
 
   @override
-  State<PersonalDetails> createState() => _PersonalDetailsState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _PersonalDetailsState extends State<PersonalDetails> {
-  var formKey = GlobalKey<FormState>();
+class _RegisterPageState extends State<RegisterPage> {
+  // var formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final genderController = TextEditingController();
   // final DateTime dobController = ;
@@ -34,6 +32,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   final studentIDController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  bool isAPIcallProcess = false;
+  bool hidePassword = true;
+
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   validateUserEmail() async {
     try {
@@ -62,25 +65,36 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     }
   }
 
-  registerAndSaveUserRecord() async {
-    User userModel = User(
-      usernameController.text.trim(),
-      genderController.text,
-      // DateOfBirthController,
-      emailController.text,
-      phoneNumberController.text,
-      studentIDController.text,
-      confirmPasswordController.text.trim(),
-    );
+  Future registerAndSaveUserRecord() async {
+    // User userModel = User(
+    //   usernameController.text.trim(),
+    //   // genderController.text,
+    //   // DateOfBirthController,
+    //   emailController.text,
+    //   phoneNumberController.text,
+    //   studentIDController.text,
+    //   confirmPasswordController.text.trim(),
+    // );
 
     try {
+      // final uri = Uri.parse(API.signUp);
+      // print(uri);
+      // var url = "http://192.168.0.111/api_lib_manage/user/signup.php";
       var res = await http.post(
         Uri.parse(API.signUp),
-        body: userModel.toJson(),
+        body: {
+          "username": usernameController.text,
+          "email": emailController.text,
+          "phone_no": phoneNumberController.text,
+          "student_id": studentIDController.text,
+          "pswd": confirmPasswordController.text,
+        },
       );
+      // print(res);
 
       if (res.statusCode == 200) {
         var resBodyOfSignUp = jsonDecode(res.body);
+        // Navigator.pop(context);
 
         if (resBodyOfSignUp['success'] == true) {
           Fluttertoast.showToast(
