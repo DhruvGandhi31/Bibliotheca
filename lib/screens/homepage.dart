@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-=======
 import 'package:carousel_slider/carousel_slider.dart';
 
-class CarouselSliderExample extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _CarouselSliderExampleState createState() => _CarouselSliderExampleState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _CarouselSliderExampleState extends State<CarouselSliderExample> {
+class _HomePageState extends State<HomePage> {
   List<String> images = [
     'assets/images/1.png',
     'assets/images/2.png',
@@ -32,15 +27,10 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
     'assets/images/image_7.png',
     'assets/images/image_8.png',
   ];
->>>>>>> f3eb80190d4e62583125e2c67c927480523214ef
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      body: Center(
-        child: Text('Homepage'),
-=======
       backgroundColor: const Color(0xFFAAD9FF),
       body: SafeArea(
         child: Center(
@@ -372,7 +362,6 @@ class _CarouselSliderExampleState extends State<CarouselSliderExample> {
             ),
           ),
         ),
->>>>>>> f3eb80190d4e62583125e2c67c927480523214ef
       ),
     );
   }

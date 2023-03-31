@@ -2,6 +2,7 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management/users/authentication/register_page.dart';
+import '../../screens/homepage.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
 
@@ -116,15 +117,16 @@ class _LoginPageState extends State<LoginPage> {
 
           const SizedBox(height: 25),
 
-          // sign in button
           MyButton(
-            text: 'Sign In',
-            onTapFunction: () {
-              // Execute your custom function here
-              // Add the home page here.
-              signUserIn;
-            },
-          ),
+              text: 'Sign In',
+              onTapFunction: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()))
+              // onTapFunction: () {
+              //   // Execute your custom function here
+              //   // Add the home page here.
+              //   signUserIn;
+              // },
+              ),
 
           // const SizedBox(height: 50),
 
