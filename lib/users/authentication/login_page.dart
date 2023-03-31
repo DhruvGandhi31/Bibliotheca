@@ -1,9 +1,10 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_management/users/authentication/register_page.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
-import 'personal_details.dart';
+import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
@@ -17,6 +18,10 @@ class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
 
   final passwordController = TextEditingController();
+  bool isAPIcallProcess = false;
+  bool hidePassword = true;
+
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   void signUserIn() {}
   // sign user in method
@@ -42,153 +47,158 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 50),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: ProgressHUD(
+          child: Form(child: _LoginUi(context), key: globalFormKey),
+          key: UniqueKey(),
+          inAsyncCall: isAPIcallProcess,
+          opacity: 0.3,
+        ),
+      ),
+    );
+  }
 
-                // logo
-                const Icon(
-                  Icons.business_center,
-                  size: 100,
-                ),
+  Widget _LoginUi(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 50),
 
-                const SizedBox(height: 25),
+          // logo
+          const Icon(
+            Icons.business_center,
+            size: 100,
+          ),
 
-                // welcome back, you've been missed!
+          const SizedBox(height: 25),
+
+          // welcome back, you've been missed!
+          Text(
+            'Welcome back!!',
+            style: TextStyle(
+                color: Colors.grey[700],
+                fontSize: 28,
+                fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 30),
+
+          // username textfield
+          MyTextField(
+            controller: usernameController,
+            hintText: 'Email',
+            obscureText: false,
+            sel_icon: const Icon(Icons.account_circle_outlined),
+          ),
+
+          const SizedBox(height: 10),
+
+          // password textfield
+          MyTextField(
+            controller: passwordController,
+            hintText: 'Password',
+            obscureText: true,
+            sel_icon: const Icon(Icons.lock),
+          ),
+
+          const SizedBox(height: 10),
+
+          // forgot password?
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: const [
                 Text(
-                  'Welcome back!!',
+                  'Forgot Password?',
                   style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                      color: Colors.blue, fontWeight: FontWeight.bold),
                 ),
-
-                const SizedBox(height: 30),
-
-                // username textfield
-                MyTextField(
-                  controller: usernameController,
-                  hintText: 'Email',
-                  obscureText: false,
-                  sel_icon: const Icon(Icons.account_circle_outlined),
-                ),
-
-                const SizedBox(height: 10),
-
-                // password textfield
-                MyTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                  sel_icon: const Icon(Icons.lock),
-                ),
-
-                const SizedBox(height: 10),
-
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                // sign in button
-                MyButton(
-                  text: 'Sign In',
-                  onTapFunction: () {
-                    // Execute your custom function here
-                    // Add the home page here.
-                    signUserIn;
-                  },
-                ),
-
-                // const SizedBox(height: 50),
-
-                // or continue with
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: Divider(
-                //           thickness: 0.5,
-                //           color: Colors.grey[400],
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                //         child: Text(
-                //           'Or continue with',
-                //           style: TextStyle(color: Colors.grey[700]),
-                //         ),
-                //       ),
-                //       Expanded(
-                //         child: Divider(
-                //           thickness: 0.5,
-                //           color: Colors.grey[400],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
-                // const SizedBox(height: 40),
-
-                // // google sign in buttons
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: const [
-                //     // google button
-                //     SquareTile(imagePath: 'assets/images/google.png'),
-
-                //     // SizedBox(width: 25),
-                //   ],
-                // ),
-
-                const SizedBox(height: 20),
-
-                // not a member? register now
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Not a member?',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
-                    TextButton(
-                        child: const Text('Register now'),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PersonalDetails()))
-                        // style: TextStyle(
-                        //   color: Colors.blue,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
-                        ),
-                  ],
-                )
               ],
             ),
           ),
-        ),
+
+          const SizedBox(height: 25),
+
+          // sign in button
+          MyButton(
+            text: 'Sign In',
+            onTapFunction: () {
+              // Execute your custom function here
+              // Add the home page here.
+              signUserIn;
+            },
+          ),
+
+          // const SizedBox(height: 50),
+
+          // or continue with
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          //   child: Row(
+          //     children: [
+          //       Expanded(
+          //         child: Divider(
+          //           thickness: 0.5,
+          //           color: Colors.grey[400],
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          //         child: Text(
+          //           'Or continue with',
+          //           style: TextStyle(color: Colors.grey[700]),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         child: Divider(
+          //           thickness: 0.5,
+          //           color: Colors.grey[400],
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
+          // const SizedBox(height: 40),
+
+          // // google sign in buttons
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: const [
+          //     // google button
+          //     SquareTile(imagePath: 'assets/images/google.png'),
+
+          //     // SizedBox(width: 25),
+          //   ],
+          // ),
+
+          const SizedBox(height: 20),
+
+          // not a member? register now
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Not a member?',
+                style: TextStyle(color: Colors.grey[700]),
+              ),
+              const SizedBox(width: 4),
+              TextButton(
+                  child: const Text('Register now'),
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()))
+                  // style: TextStyle(
+                  //   color: Colors.blue,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
+                  ),
+            ],
+          )
+        ],
       ),
     );
   }

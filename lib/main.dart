@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management/users/authentication/login_page.dart';
 import 'screens/splash_screen.dart';
+import 'users/authentication/register_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       home: LoginPage(),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
+        RegisterPage.routeName: (context) => const RegisterPage(),
         // HomePage.routeName:(context) => HomePage(),
       },
     );
