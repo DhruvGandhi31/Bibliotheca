@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'messages.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,16 +52,16 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: EdgeInsets.all(20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Padding(
+                          children: <Widget>[
+                            const Padding(
                               padding: EdgeInsets.only(right: 20),
                               child: Icon(Icons.person,
                                   size: 28, color: Colors.white),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'Hello User!',
                                 textAlign: TextAlign.center,
@@ -71,10 +72,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 20),
-                              child: Icon(Icons.message,
-                                  size: 28, color: Colors.white),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NoticeBoardScreen()),
+                                );
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Icon(Icons.message,
+                                    size: 28, color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
@@ -92,9 +103,9 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       decoration: InputDecoration(
-                        hintText: 'Search...',
+                        hintText: 'Search by ISBN...',
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.search),
                       ),
