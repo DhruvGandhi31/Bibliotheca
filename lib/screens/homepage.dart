@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'messages.dart';
+import 'navbar.dart';
+import 'sidebar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,6 +34,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Library'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NoticeBoardScreen()),
+              );
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Icon(Icons.message, size: 28, color: Colors.white),
+            ),
+          ),
+        ],
+      ),
       backgroundColor: const Color(0xFFAAD9FF),
       body: SafeArea(
         child: Center(
@@ -41,58 +62,67 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    // color: Colors.,
-                    color: const Color(0xFF004A83),
-                    // color: const Color(0xFF4AB253)
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            const Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Icon(Icons.person,
-                                  size: 28, color: Colors.white),
-                            ),
-                            const Expanded(
-                              child: Text(
-                                'Hello User!',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          NoticeBoardScreen()),
-                                );
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.only(left: 20),
-                                child: Icon(Icons.message,
-                                    size: 28, color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 10),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   decoration: BoxDecoration(
+                //     // color: Colors.,
+                //     color: const Color(0xFF004A83),
+                //     // color: const Color(0xFF4AB253)
+                //     borderRadius: BorderRadius.circular(5.0),
+                //   ),
+                //   child: Column(
+                //     children: [
+                //       Padding(
+                //         padding: EdgeInsets.all(20.0),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: <Widget>[
+                //             TextButton(
+                //               onPressed: () {
+                //                 Navigator.push(
+                //                     context,
+                //                     MaterialPageRoute(
+                //                         builder: (context) => SideBar()));
+                //               },
+                //               child: Padding(
+                //                 padding: EdgeInsets.only(right: 20),
+                //                 child: Icon(Icons.person,
+                //                     size: 28, color: Colors.white),
+                //               ),
+                //             ),
+                //             const Expanded(
+                //               child: Text(
+                //                 'Hello User!',
+                //                 textAlign: TextAlign.center,
+                //                 style: TextStyle(
+                //                   fontSize: 23,
+                //                   fontWeight: FontWeight.bold,
+                //                   color: Colors.white,
+                //                 ),
+                //               ),
+                //             ),
+                //             TextButton(
+                //               onPressed: () {
+                //                 Navigator.push(
+                //                   context,
+                //                   MaterialPageRoute(
+                //                       builder: (context) =>
+                //                           NoticeBoardScreen()),
+                //                 );
+                //               },
+                //               child: const Padding(
+                //                 padding: EdgeInsets.only(left: 20),
+                //                 child: Icon(Icons.message,
+                //                     size: 28, color: Colors.white),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(height: 10),
                 Center(
                   child: Container(
