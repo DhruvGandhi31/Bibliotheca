@@ -1,6 +1,4 @@
-# library_mangement
-
-Please note that the SignUp feature uses MySQL database for saving a records of users. For implemeting PHP is used as backend which provides the api and service to connect to localhost. The server is hosted on XAMPP which is connected locally. If you want to test this application please download the XAMPP. And add 'api_lib_manage' which is in PHP folder to the htdocs of the downloaded location of XAMPP. 
+## Library Management System
 
 # Guide for node js backend
 
