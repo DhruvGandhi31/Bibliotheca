@@ -35,10 +35,17 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  String username = '';
+  String email = '';
+  String phone_no = '';
+  String student_id = '';
+  String password = '';
+
   bool isAPIcallProcess = false;
   bool hidePassword = true;
 
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
@@ -123,118 +130,281 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),
-            child: Column(children: [
-              // const SizedBox(height: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(children: [
+                // const SizedBox(height: 20),
 
-              // logo
-              const Icon(
-                Icons.app_registration,
-                size: 100,
-              ),
-              Text(
-                'New User Registration',
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.58,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // const SizedBox(height: 20),
+                // logo
+                const Icon(
+                  Icons.app_registration,
+                  size: 100,
+                ),
+                Text(
+                  'New User Registration',
+                  style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.58,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // const SizedBox(height: 20),
 
-                      // welcome back, you've been missed!
+                        // welcome back, you've been missed!
 
-                      const SizedBox(height: 30),
+                        const SizedBox(height: 30),
 
-                      // username textfield
-                      MyTextField(
-                        controller: usernameController,
-                        hintText: 'Full Name',
-                        obscureText: false,
-                        sel_icon: const Icon(Icons.account_circle_outlined),
-                        textInputAction: TextInputAction.next,
-                      ),
+                        // username textfield
+                        // MyTextField(
+                        //   controller: usernameController,
+                        //   hintText: 'Full Name',
+                        //   obscureText: false,
+                        //   sel_icon: const Icon(Icons.account_circle_outlined),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => username = value);
+                            },
+                            controller: usernameController,
+                            // focusNode: _focusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon:
+                                  const Icon(Icons.account_circle_outlined),
+                              hintText: 'Full Name',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
 
-                      const SizedBox(height: 15),
-                      // password textfield
+                        const SizedBox(height: 15),
+                        // password textfield
 
-                      GenderPicker(
-                        onGenderSelected: (value) {
-                          // Handle the selected gender
-                        },
-                      ),
+                        GenderPicker(
+                          onGenderSelected: (value) {
+                            // Handle the selected gender
+                          },
+                        ),
 
-                      const SizedBox(height: 15),
+                        const SizedBox(height: 15),
 
-                      DateOfBirthPicker(
-                        onDateSelected: (value) {
-                          // Handle the selected date
-                        },
-                      ),
+                        DateOfBirthPicker(
+                          onDateSelected: (value) {
+                            // Handle the selected date
+                          },
+                        ),
 
-                      const SizedBox(height: 15),
+                        const SizedBox(height: 15),
 
-                      MyTextField(
-                        controller: emailController,
-                        hintText: 'Email',
-                        obscureText: false,
-                        sel_icon: const Icon(Icons.email_outlined),
-                        textInputAction: TextInputAction.next,
-                      ),
+                        // MyTextField(
+                        //   controller: emailController,
+                        //   hintText: 'Email',
+                        //   obscureText: false,
+                        //   sel_icon: const Icon(Icons.email_outlined),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => email = value);
+                            },
+                            controller: emailController,
+                            // focusNode: _focusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.email_outlined),
+                              hintText: 'Email',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
 
-                      // const SizedBox(height: 15),
+                        const SizedBox(height: 15),
 
-                      MyTextField(
-                        controller: phoneNumberController,
-                        hintText: 'Phone Number',
-                        obscureText: false,
-                        sel_icon: const Icon(Icons.phone_outlined),
-                        textInputAction: TextInputAction.next,
-                      ),
+                        // MyTextField(
+                        //   controller: phoneNumberController,
+                        //   hintText: 'Phone Number',
+                        //   obscureText: false,
+                        //   sel_icon: const Icon(Icons.phone_outlined),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => phone_no = value);
+                            },
+                            controller: phoneNumberController,
+                            // focusNode: _focusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.phone_outlined),
+                              hintText: 'Phone Number',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
 
-                      const SizedBox(height: 15),
+                        const SizedBox(height: 15),
 
-                      MyTextField(
-                        controller: studentIDController,
-                        hintText: 'Student ID',
-                        obscureText: false,
-                        sel_icon: const Icon(Icons.email),
-                        textInputAction: TextInputAction.next,
-                      ),
-                      const SizedBox(height: 15),
+                        // MyTextField(
+                        //   controller: studentIDController,
+                        //   hintText: 'Student ID',
+                        //   obscureText: false,
+                        //   sel_icon: const Icon(Icons.email),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => student_id = value);
+                            },
+                            controller: studentIDController,
+                            // focusNode: _focusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.email),
+                              hintText: 'Student ID',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
 
-                      MyTextField(
-                        controller: passwordController,
-                        hintText: 'Enter your Password',
-                        obscureText: true,
-                        sel_icon: const Icon(Icons.lock_open),
-                        textInputAction: TextInputAction.next,
-                      ),
+                        // MyTextField(
+                        //   controller: passwordController,
+                        //   hintText: 'Enter your Password',
+                        //   obscureText: true,
+                        //   sel_icon: const Icon(Icons.lock_open),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => password = value);
+                            },
+                            controller: passwordController,
+                            // focusNode: _focusNode,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.lock_open),
+                              hintText: 'Enter your Password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
 
-                      const SizedBox(height: 15),
+                        const SizedBox(height: 15),
 
-                      MyTextField(
-                        controller: confirmPasswordController,
-                        hintText: 'Confirm Password',
-                        obscureText: true,
-                        sel_icon: const Icon(Icons.lock),
-                        textInputAction: TextInputAction.next,
-                      ),
-                    ],
+                        // MyTextField(
+                        //   controller: confirmPasswordController,
+                        //   hintText: 'Confirm Password',
+                        //   obscureText: true,
+                        //   sel_icon: const Icon(Icons.lock),
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.875,
+                          child: TextFormField(
+                            controller: confirmPasswordController,
+                            // focusNode: _focusNode,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.lock),
+                              hintText: 'Confirm Password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            textInputAction: TextInputAction.next,
+                            // onSubmitted: _handleSubmitted,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              MyButton(
-                text: 'Register',
-                onTapFunction: register_user,
-              ),
-            ]),
+                const SizedBox(height: 20),
+                MyButton(
+                  text: 'Register',
+                  onTapFunction: () async {},
+                ),
+              ]),
+            ),
           ),
         ),
       ),
