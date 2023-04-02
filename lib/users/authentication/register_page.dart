@@ -41,6 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String student_id = '';
   String password = '';
   String confirmPassword = '';
+  String error = '';
 
   bool isAPIcallProcess = false;
   bool hidePassword = true;
@@ -126,6 +127,14 @@ class _RegisterPageState extends State<RegisterPage> {
       if (_formKey.currentState!.validate()) {
         print(email);
         print(password);
+
+        dynamic result =
+            await _auth.registerWithEmailAndPassword(email, password);
+        if (result == null) {
+          Fluttertoast.showToast(msg: "Poblem occured during signup");
+        } else {
+          Fluttertoast.showToast(msg: "Congratulations! you are registered");
+        }
       }
     } else {
       Fluttertoast.showToast(msg: "passwords do not match");
