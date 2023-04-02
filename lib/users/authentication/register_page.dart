@@ -40,6 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String phone_no = '';
   String student_id = '';
   String password = '';
+  String confirmPassword = '';
 
   bool isAPIcallProcess = false;
   bool hidePassword = true;
@@ -120,7 +121,20 @@ class _RegisterPageState extends State<RegisterPage> {
   //   }
   // }
 
-  void register_user() {}
+  register_user() async {
+    if (password == confirmPassword) {
+      if (_formKey.currentState!.validate()) {
+        print(email);
+        print(password);
+      }
+    } else {
+      Fluttertoast.showToast(msg: "passwords do not match");
+    }
+  }
+
+  popMsg(String msg) {
+    Fluttertoast.showToast(msg: msg);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +189,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               setState(() => username = value);
                             },
                             controller: usernameController,
+                            validator: (value) => value!.isEmpty
+                                ? popMsg('Full name is required')
+                                : null,
                             // focusNode: _focusNode,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -229,6 +246,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             onChanged: (value) {
                               setState(() => email = value);
                             },
+                            validator: (value) => value!.isEmpty
+                                ? popMsg('Email is required')
+                                : null,
                             controller: emailController,
                             // focusNode: _focusNode,
                             obscureText: false,
@@ -267,6 +287,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               setState(() => phone_no = value);
                             },
                             controller: phoneNumberController,
+                            validator: (value) => value!.isEmpty ||
+                                    (value.length == 10)
+                                ? popMsg('Please enter your phone no. properly')
+                                : null,
                             // focusNode: _focusNode,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -303,6 +327,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             onChanged: (value) {
                               setState(() => student_id = value);
                             },
+                            validator: (value) => value!.isEmpty
+                                ? popMsg('student ID is required')
+                                : null,
                             controller: studentIDController,
                             // focusNode: _focusNode,
                             obscureText: false,
@@ -339,6 +366,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             onChanged: (value) {
                               setState(() => password = value);
                             },
+                            validator: (value) => value!.isEmpty ||
+                                    (value.length < 8)
+                                ? popMsg('Please enter your password properly')
+                                : null,
                             controller: passwordController,
                             // focusNode: _focusNode,
                             obscureText: true,
@@ -373,6 +404,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.875,
                           child: TextFormField(
+                            onChanged: (value) {
+                              setState(() => confirmPassword = value);
+                            },
+                            validator: (value) => value!.isEmpty ||
+                                    (value.length < 8)
+                                ? popMsg('Please enter your password properly')
+                                : null,
                             controller: confirmPasswordController,
                             // focusNode: _focusNode,
                             obscureText: true,
@@ -401,7 +439,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 20),
                 MyButton(
                   text: 'Register',
-                  onTapFunction: () async {},
+                  onTapFunction: register_user,
                 ),
               ]),
             ),
