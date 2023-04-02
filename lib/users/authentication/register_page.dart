@@ -36,78 +36,80 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isAPIcallProcess = false;
   bool hidePassword = true;
 
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
-  validateUserEmail() async {
-    try {
-      var res = await http.post(
-        Uri.parse(API.validateEmail),
-        body: {
-          'email': emailController.text.trim(),
-        },
-      );
+  // validateUserEmail() async {
+  //   try {
+  //     var res = await http.post(
+  //       Uri.parse(API.validateEmail),
+  //       body: {
+  //         'email': emailController.text.trim(),
+  //       },
+  //     );
 
-      if (res.statusCode == 200) {
-        //success connection api to server from flutter app
-        var resBodyOfValidateEmail = jsonDecode(res.body);
+  //     if (res.statusCode == 200) {
+  //       //success connection api to server from flutter app
+  //       var resBodyOfValidateEmail = jsonDecode(res.body);
 
-        if (resBodyOfValidateEmail['emailFound'] == true) {
-          Fluttertoast.showToast(
-              msg: "Email alreaady exists. Try another email");
-        } else {
-          //register & save new user record to database
-          registerAndSaveUserRecord();
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-      Fluttertoast.showToast(msg: e.toString());
-    }
-  }
+  //       if (resBodyOfValidateEmail['emailFound'] == true) {
+  //         Fluttertoast.showToast(
+  //             msg: "Email alreaady exists. Try another email");
+  //       } else {
+  //         //register & save new user record to database
+  //         registerAndSaveUserRecord();
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     Fluttertoast.showToast(msg: e.toString());
+  //   }
+  // }
 
-  Future registerAndSaveUserRecord() async {
-    // User userModel = User(
-    //   usernameController.text.trim(),
-    //   // genderController.text,
-    //   // DateOfBirthController,
-    //   emailController.text,
-    //   phoneNumberController.text,
-    //   studentIDController.text,
-    //   confirmPasswordController.text.trim(),
-    // );
+  // Future registerAndSaveUserRecord() async {
+  //   // User userModel = User(
+  //   //   usernameController.text.trim(),
+  //   //   // genderController.text,
+  //   //   // DateOfBirthController,
+  //   //   emailController.text,
+  //   //   phoneNumberController.text,
+  //   //   studentIDController.text,
+  //   //   confirmPasswordController.text.trim(),
+  //   // );
 
-    try {
-      // final uri = Uri.parse(API.signUp);
-      // print(uri);
-      // var url = "http://192.168.0.111/api_lib_manage/user/signup.php";
-      var res = await http.post(
-        Uri.parse(API.signUp),
-        body: {
-          "username": usernameController.text,
-          "email": emailController.text,
-          "phone_no": phoneNumberController.text,
-          "student_id": studentIDController.text,
-          "pswd": confirmPasswordController.text,
-        },
-      );
-      // print(res);
+  //   try {
+  //     // final uri = Uri.parse(API.signUp);
+  //     // print(uri);
+  //     // var url = "http://192.168.0.111/api_lib_manage/user/signup.php";
+  //     var res = await http.post(
+  //       Uri.parse(API.signUp),
+  //       body: {
+  //         "username": usernameController.text,
+  //         "email": emailController.text,
+  //         "phone_no": phoneNumberController.text,
+  //         "student_id": studentIDController.text,
+  //         "pswd": confirmPasswordController.text,
+  //       },
+  //     );
+  //     // print(res);
 
-      if (res.statusCode == 200) {
-        var resBodyOfSignUp = jsonDecode(res.body);
-        // Navigator.pop(context);
+  //     if (res.statusCode == 200) {
+  //       var resBodyOfSignUp = jsonDecode(res.body);
+  //       // Navigator.pop(context);
 
-        if (resBodyOfSignUp['success'] == true) {
-          Fluttertoast.showToast(
-              msg: "Congratulations!, you are signed up successfully.");
-        } else {
-          Fluttertoast.showToast(msg: "Error occurred in SignUp");
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-      Fluttertoast.showToast(msg: e.toString());
-    }
-  }
+  //       if (resBodyOfSignUp['success'] == true) {
+  //         Fluttertoast.showToast(
+  //             msg: "Congratulations!, you are signed up successfully.");
+  //       } else {
+  //         Fluttertoast.showToast(msg: "Error occurred in SignUp");
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     Fluttertoast.showToast(msg: e.toString());
+  //   }
+  // }
+
+  void register_user() {}
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               MyButton(
                 text: 'Register',
-                onTapFunction: validateUserEmail,
+                onTapFunction: register_user,
               ),
             ]),
           ),

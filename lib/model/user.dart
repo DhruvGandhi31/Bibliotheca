@@ -7,15 +7,30 @@ class User {
   String student_id;
   String pswd;
 
-  User(this.username, this.email, this.phone_no, this.student_id, this.pswd);
+  User(
+      {required this.username,
+      required this.email,
+      required this.phone_no,
+      required this.student_id,
+      required this.pswd});
 
-  Map<String, dynamic> toJson() => {
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      username: json["username"],
+      email: json["email"],
+      phone_no: json["phone_no"],
+      student_id: json["student_id"],
+      pswd: json["pswd"],
+    );
+  }
+
+  Map<String, dynamic> get toJson => {
         'username': username,
         // 'gender': gender,
         // 'Dob': Dob.toString(),
         'email': email,
         'phone_no': phone_no,
-        'student_id': student_id,
+        'student_username': student_id,
         'pswd': pswd
       };
 }

@@ -3,7 +3,7 @@ const auth = require("../middlewares/auth");
 const mySQL = require('mysql');
 const db = require('../config/db.config');
 
-async function login({ email, password }, callback) {
+async function login({ email, pswd }, callback) {
 
     let selectQuery = 'SELECT COUNT(*) as "total", ?? FROM ?? WHERE ?? = ? LIMIT 1';
     let query = mySQL.format(selectQuery, ["pswd", "user_register", "email", email]);
@@ -15,18 +15,18 @@ async function login({ email, password }, callback) {
 
         if (data[0].total == 0) {
             return callback({
-                message: "Invalid Email/Password!"
+                message: "Invalid Email/pswd!"
             });
         }
 
         else {
-            if (bcrypt.compareSync(password, data[0].pswd)) {
+            if (bcrypt.compareSync(pswd, data[0].pswd)) {
                 const token = auth.generateAccessToken(email);
                 return callback(null, { token });
             }
             else {
                 return callback({
-                    message: "Invalid Email/Password!"
+                    message: "Invalid Email/pswd!"
                 })
             }
         }
@@ -36,7 +36,7 @@ async function login({ email, password }, callback) {
 }
 
 async function register(params, callback) {
-    if (params.email === undefined || params.username === undefined || params.password === undefined || params.phone_no === undefined || params.student_id === undefined) {
+    if (params.email === undefined || params.username === undefined || params.pswd === undefined || params.phone_no === undefined || params.student_id === undefined) {
         return callback({ message: "All fields are required" });
     }
 
@@ -61,7 +61,7 @@ async function register(params, callback) {
         else {
             db.query(`INSERT INTO user_register(username, email, phone_no, student_id, pswd)
             VALUES(?, ?, ?, ?, ?)`, [
-                params.username, params.email, params.phone_no, params.student_id, params.password
+                params.username, params.email, params.phone_no, params.student_id, params.pswd
             ],
                 (error, results, fields) => {
                     if (error) {
