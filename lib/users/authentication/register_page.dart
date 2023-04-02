@@ -141,14 +141,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       // const SizedBox(height: 20),
 
-                      // // logo
-                      // const Icon(
-                      //   Icons.app_registration,
-                      //   size: 100,
-                      // ),
-
-                      const SizedBox(height: 20),
-
                       // welcome back, you've been missed!
 
                       const SizedBox(height: 30),
@@ -159,6 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Full Name',
                         obscureText: false,
                         sel_icon: const Icon(Icons.account_circle_outlined),
+                        textInputAction: TextInputAction.next,
                       ),
 
                       const SizedBox(height: 15),
@@ -185,15 +178,17 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Email',
                         obscureText: false,
                         sel_icon: const Icon(Icons.email_outlined),
+                        textInputAction: TextInputAction.next,
                       ),
 
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 15),
 
                       MyTextField(
                         controller: phoneNumberController,
                         hintText: 'Phone Number',
                         obscureText: false,
                         sel_icon: const Icon(Icons.phone_outlined),
+                        textInputAction: TextInputAction.next,
                       ),
 
                       const SizedBox(height: 15),
@@ -203,6 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Student ID',
                         obscureText: false,
                         sel_icon: const Icon(Icons.email),
+                        textInputAction: TextInputAction.next,
                       ),
                       const SizedBox(height: 15),
 
@@ -211,6 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Enter your Password',
                         obscureText: true,
                         sel_icon: const Icon(Icons.lock_open),
+                        textInputAction: TextInputAction.next,
                       ),
 
                       const SizedBox(height: 15),
@@ -220,29 +217,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Confirm Password',
                         obscureText: true,
                         sel_icon: const Icon(Icons.lock),
+                        textInputAction: TextInputAction.next,
                       ),
-
-                      // const SizedBox(height: 30),
-
-                      // const SizedBox(height: 20),
-
-                      // MyButton(
-                      //   text: 'Next',
-                      //   onTapFunction: () {
-                      //     // Execute your custom function here
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => RegistrationDetails(
-                      //               usernameController,
-                      //               genderController,
-                      //               emailController,
-                      //               phoneNumberController,
-                      //               branchController,
-                      //               batchController)),
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                 ),

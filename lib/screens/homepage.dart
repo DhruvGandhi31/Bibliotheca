@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../utils/book.dart';
+import '../utils/bottombutton.dart';
+import '../utils/mostpopbookslist.dart';
+import 'Book Open Page/bookdetails.dart';
+import 'HomePage/Issued Books/bookslist.dart';
+import 'HomePage/Issue a Book/issuebooks.dart';
 import 'messages.dart';
 import 'navbar.dart';
-import 'sidebar.dart';
+import '../utils/centerbuttons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,11 +37,22 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_8.png',
   ];
 
+  void navigateToBookDetailPage(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            BookDetailPage(onTap: () {}, lastbutton: 'Issue Book', book: book),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         centerTitle: true,
         title: Text('Library'),
         actions: <Widget>[
@@ -60,69 +77,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   decoration: BoxDecoration(
-                //     // color: Colors.,
-                //     color: const Color(0xFF004A83),
-                //     // color: const Color(0xFF4AB253)
-                //     borderRadius: BorderRadius.circular(5.0),
-                //   ),
-                //   child: Column(
-                //     children: [
-                //       Padding(
-                //         padding: EdgeInsets.all(20.0),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //           children: <Widget>[
-                //             TextButton(
-                //               onPressed: () {
-                //                 Navigator.push(
-                //                     context,
-                //                     MaterialPageRoute(
-                //                         builder: (context) => SideBar()));
-                //               },
-                //               child: Padding(
-                //                 padding: EdgeInsets.only(right: 20),
-                //                 child: Icon(Icons.person,
-                //                     size: 28, color: Colors.white),
-                //               ),
-                //             ),
-                //             const Expanded(
-                //               child: Text(
-                //                 'Hello User!',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                   fontSize: 23,
-                //                   fontWeight: FontWeight.bold,
-                //                   color: Colors.white,
-                //                 ),
-                //               ),
-                //             ),
-                //             TextButton(
-                //               onPressed: () {
-                //                 Navigator.push(
-                //                   context,
-                //                   MaterialPageRoute(
-                //                       builder: (context) =>
-                //                           NoticeBoardScreen()),
-                //                 );
-                //               },
-                //               child: const Padding(
-                //                 padding: EdgeInsets.only(left: 20),
-                //                 child: Icon(Icons.message,
-                //                     size: 28, color: Colors.white),
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 const SizedBox(height: 10),
                 Center(
                   child: Container(
@@ -142,7 +97,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 200.0,
@@ -196,31 +150,35 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 10),
                 CarouselSlider(
                   options: CarouselOptions(
-                    // onScrolled: ,
                     height: 150.0,
                     enlargeCenterPage: false,
-                    autoPlay: false, // disable auto play
+                    autoPlay: false,
                     aspectRatio: 2 / 3,
                     padEnds: false,
                     enableInfiniteScroll: false,
                     autoPlayCurve: Curves.fastOutSlowIn,
                     disableCenter: true,
-                    viewportFraction: 0.3, // display 3 images at a time
+                    viewportFraction: 0.3,
                   ),
-                  items: moreimages.map((imagePath) {
+                  items: books.map((book) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0),
-                            child: Image.asset(
-                              imagePath,
-                              fit: BoxFit.contain,
+                        return GestureDetector(
+                          onTap: () {
+                            navigateToBookDetailPage(context, book);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0),
+                              child: Image.asset(
+                                book.image,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         );
@@ -228,64 +186,22 @@ class _HomePageState extends State<HomePage> {
                     );
                   }).toList(),
                 ),
-
                 const SizedBox(height: 20),
-                TextButton(
-                  onPressed: () {
-                    // function to call when button is pressed
-                    // print('Button pressed!');
-                  },
-                  child: Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFF5521),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Text(
-                        'Issue a Book',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                CenterButton(
+                    buttonColor: const Color(0xFF0E6BA8),
+                    buttonText: 'Issue a Book',
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BookIssueScreen()));
+                    }),
                 const SizedBox(height: 10),
-                TextButton(
-                  onPressed: () {
-                    // function to call when button is pressed
-                    // print('Button pressed!');
-                  },
-                  child: Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4CAF50),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Text(
-                        'Return a Book',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                //j
-                //
-
+                CenterButton(
+                    buttonColor: const Color(0xFF1B4F72),
+                    buttonText: 'Return a Book',
+                    onPressed: () {}),
+                const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 10),
@@ -293,109 +209,23 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        child: GestureDetector(
+                      BottomButton(
+                          containerColor: const Color(0xFF0E6BA8),
+                          number: 17,
                           onTap: () {
-                            // do something when the first button is pressed
-                            print("First Button");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BookListPage(books: books)));
                           },
-                          child: Container(
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFEF1C63),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: Icon(
-                                    Icons.book,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      '17',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Issued Books',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          text: 'Issued Books'),
                       const SizedBox(width: 20), // SizedBox(width: 20),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            // do something when the first button is pressed
-                            print("First Button");
-                          },
-                          child: Container(
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF6339B5),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: Icon(
-                                    Icons.book,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      '17',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Issued Books',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      BottomButton(
+                          containerColor: const Color(0xFF1B4F72),
+                          number: 23,
+                          onTap: () {},
+                          text: 'Returned Books'),
                     ],
                   ),
                 ),
