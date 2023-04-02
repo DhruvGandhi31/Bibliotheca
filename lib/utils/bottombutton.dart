@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomButton extends StatelessWidget {
-  final Function onTap;
+  final VoidCallback onTap;
   final String text;
   final int number;
   final Color containerColor;
@@ -18,7 +18,7 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: onTap(),
+        onTap: onTap,
         child: Container(
           height: 120,
           decoration: BoxDecoration(

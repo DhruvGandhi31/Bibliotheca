@@ -47,9 +47,9 @@ class BookIssueScreen extends StatelessWidget {
         child: Center(
           child: Text(
             genre,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
-              fontSize: 24.0,
+              fontSize: 22.0,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../utils/book.dart';
 import '../utils/bottombutton.dart';
-import 'issuebooks.dart';
+import '../utils/mostpopbookslist.dart';
+import 'Book Open Page/bookdetails.dart';
+import 'HomePage/Issued Books/bookslist.dart';
+import 'HomePage/Issue a Book/issuebooks.dart';
 import 'messages.dart';
 import 'navbar.dart';
 import '../utils/centerbuttons.dart';
@@ -32,6 +36,16 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_7.png',
     'assets/images/image_8.png',
   ];
+
+  void navigateToBookDetailPage(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            BookDetailPage(onTap: () {}, lastbutton: 'Issue Book', book: book),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,31 +150,35 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 10),
                 CarouselSlider(
                   options: CarouselOptions(
-                    // onScrolled: ,
                     height: 150.0,
                     enlargeCenterPage: false,
-                    autoPlay: false, // disable auto play
+                    autoPlay: false,
                     aspectRatio: 2 / 3,
                     padEnds: false,
                     enableInfiniteScroll: false,
                     autoPlayCurve: Curves.fastOutSlowIn,
                     disableCenter: true,
-                    viewportFraction: 0.3, // display 3 images at a time
+                    viewportFraction: 0.3,
                   ),
-                  items: moreimages.map((imagePath) {
+                  items: books.map((book) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0),
-                            child: Image.asset(
-                              imagePath,
-                              fit: BoxFit.contain,
+                        return GestureDetector(
+                          onTap: () {
+                            navigateToBookDetailPage(context, book);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0),
+                              child: Image.asset(
+                                book.image,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         );
@@ -194,7 +212,13 @@ class _HomePageState extends State<HomePage> {
                       BottomButton(
                           containerColor: const Color(0xFF0E6BA8),
                           number: 17,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BookListPage(books: books)));
+                          },
                           text: 'Issued Books'),
                       const SizedBox(width: 20), // SizedBox(width: 20),
                       BottomButton(
