@@ -86,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Email',
             obscureText: false,
             sel_icon: const Icon(Icons.account_circle_outlined),
+            textInputAction: TextInputAction.next,
           ),
 
           const SizedBox(height: 10),
@@ -96,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Password',
             obscureText: true,
             sel_icon: const Icon(Icons.lock),
+            textInputAction: TextInputAction.next,
           ),
 
           const SizedBox(height: 10),

@@ -12,7 +12,7 @@ class NavBar extends StatelessWidget {
             accountName: Text("User Name"),
             accountEmail: Text("user@email.com"),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage("https://i.pravatar.cc/300"),
+              backgroundImage: AssetImage('assets/images/image_6.png'),
             ),
           ),
           ListTile(
@@ -23,8 +23,8 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: const Text('Your Orders'),
+            leading: const Icon(Icons.history),
+            title: const Text('History'),
             onTap: () {
               // Navigate to your orders screen
             },
