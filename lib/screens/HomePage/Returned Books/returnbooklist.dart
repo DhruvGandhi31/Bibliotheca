@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import '../../../utils/book.dart';
 import '../../Book Open Page/bookdetails.dart';
 
-class BookListPage extends StatelessWidget {
+class ReturnBookListPage extends StatelessWidget {
   final List<Book> books;
 
-  BookListPage({required this.books});
+  ReturnBookListPage({required this.books});
 
   void navigateToBookDetailPage(BuildContext context, Book book) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            BookDetailPage(onTap: () {}, lastbutton: 'Return Book', book: book),
+        builder: (context) => BookDetailPage(
+            onTap: () {}, lastbutton: 'Reissue Book', book: book),
       ),
     );
   }

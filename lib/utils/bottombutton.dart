@@ -5,6 +5,7 @@ class BottomButton extends StatelessWidget {
   final String text;
   final int number;
   final Color containerColor;
+  final IconData icondata;
 
   const BottomButton({
     Key? key,
@@ -12,6 +13,7 @@ class BottomButton extends StatelessWidget {
     required this.text,
     required this.number,
     required this.containerColor,
+    required this.icondata,
   }) : super(key: key);
 
   @override
@@ -28,10 +30,10 @@ class BottomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: Icon(
-                  Icons.book,
+                  icondata,
                   color: Colors.white,
                   size: 22.0,
                 ),
