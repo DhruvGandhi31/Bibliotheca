@@ -1,10 +1,12 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_management/users/authentication/register_page.dart';
+import 'package:library_management/users/authentication/auth.dart';
+
 import '../../screens/homepage.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
@@ -18,10 +20,33 @@ class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
 
   final passwordController = TextEditingController();
-  bool isAPIcallProcess = false;
-  bool hidePassword = true;
 
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
+
+  bool signedIn = false;
+
+  //imported from mytexfield.dart
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleSubmitted(String value) {
+    final currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.nextFocus();
+    }
+  }
+  //end
 
   void signUserIn() {}
   // sign user in method
@@ -44,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
 
   //   return user;
   // }
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -81,23 +108,75 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 30),
 
           // username textfield
-          MyTextField(
-            controller: usernameController,
-            hintText: 'Email',
-            obscureText: false,
-            sel_icon: const Icon(Icons.account_circle_outlined),
-            textInputAction: TextInputAction.next,
+          // MyTextField(
+          //   controller: usernameController,
+          //   hintText: 'Email',
+          //   obscureText: false,
+          //   sel_icon: const Icon(Icons.account_circle_outlined),
+          //   textInputAction: TextInputAction.next,
+          // ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.875,
+            child: TextField(
+              onChanged: (value) {
+                setState(() => email = value);
+              },
+              controller: usernameController,
+              // focusNode: _focusNode,
+              obscureText: false,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade400),
+                ),
+                fillColor: Colors.grey.shade200,
+                filled: true,
+                prefixIcon: const Icon(Icons.account_circle_outlined),
+                hintText: 'Email',
+                hintStyle: const TextStyle(color: Colors.grey),
+              ),
+              textInputAction: TextInputAction.next,
+              onSubmitted: _handleSubmitted,
+            ),
           ),
 
           const SizedBox(height: 10),
 
           // password textfield
-          MyTextField(
-            controller: passwordController,
-            hintText: 'Password',
-            obscureText: true,
-            sel_icon: const Icon(Icons.lock),
-            textInputAction: TextInputAction.next,
+          // MyTextField(
+          //   controller: passwordController,
+          //   hintText: 'Password',
+          //   obscureText: true,
+          //   sel_icon: const Icon(Icons.lock),
+          //   textInputAction: TextInputAction.next,
+          // ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.875,
+            child: TextField(
+              onChanged: (value) {
+                setState(() => password = value);
+              },
+              controller: passwordController,
+              // focusNode: _focusNode,
+              obscureText: true,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade400),
+                ),
+                fillColor: Colors.grey.shade200,
+                filled: true,
+                prefixIcon: const Icon(Icons.lock),
+                hintText: 'Password',
+                hintStyle: const TextStyle(color: Colors.grey),
+              ),
+              textInputAction: TextInputAction.next,
+              onSubmitted: _handleSubmitted,
+            ),
           ),
 
           const SizedBox(height: 10),
@@ -120,15 +199,22 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 25),
 
           MyButton(
-              text: 'Sign In',
-              onTapFunction: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()))
-              // onTapFunction: () {
-              //   // Execute your custom function here
-              //   // Add the home page here.
-              //   signUserIn;
-              // },
-              ),
+            text: 'Sign In',
+            // onTapFunction: () => Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => HomePage()))
+            onTapFunction: () async {
+              dynamic result = await _auth.signInanon();
+              if (result == null) {
+                print("Error signing in");
+              } else {
+                print("signed in");
+                print(email);
+                print(password);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              }
+            },
+          ),
 
           // const SizedBox(height: 50),
 

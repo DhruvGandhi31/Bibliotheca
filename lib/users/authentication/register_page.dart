@@ -11,6 +11,8 @@ import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
 import 'package:http/http.dart' as http;
 
+import 'auth.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -35,6 +37,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool isAPIcallProcess = false;
   bool hidePassword = true;
+
+  final AuthService _auth = AuthService();
 
   // GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 

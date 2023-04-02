@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   String username;
   // String gender;
   // DateTime Dob;
@@ -7,15 +7,15 @@ class User {
   String student_id;
   String pswd;
 
-  User(
+  UserModel(
       {required this.username,
       required this.email,
       required this.phone_no,
       required this.student_id,
       required this.pswd});
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       username: json["username"],
       email: json["email"],
       phone_no: json["phone_no"],

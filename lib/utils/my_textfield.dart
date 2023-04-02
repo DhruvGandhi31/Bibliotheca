@@ -42,6 +42,10 @@ class _MyTextFieldState extends State<MyTextField> {
     }
   }
 
+  String returnValue(String value) {
+    return value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
