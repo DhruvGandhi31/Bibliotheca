@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../utils/book.dart';
 import '../utils/bottombutton.dart';
+import '../utils/issuedbookslist.dart';
 import '../utils/mostpopbookslist.dart';
+import '../utils/returnbookslist.dart';
 import 'Book Open Page/bookdetails.dart';
 import 'HomePage/Issued Books/bookslist.dart';
 import 'HomePage/Issue a Book/issuebooks.dart';
+import 'HomePage/Returned Books/returnbooklist.dart';
 import 'messages.dart';
 import 'navbar.dart';
 import '../utils/centerbuttons.dart';
@@ -37,12 +40,16 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_8.png',
   ];
 
-  void navigateToBookDetailPage(BuildContext context, Book book) {
+  void navigateToBookDetailPage(BuildContext context, Book book, String text) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            BookDetailPage(onTap: () {}, lastbutton: 'Issue Book', book: book),
+        builder: (context) => BookDetailPage(
+            onTap: () {
+              //Dhruv bhai idhar hame daalna hai, book issue karne ke baad kya karna hoga
+            },
+            lastbutton: text,
+            book: book),
       ),
     );
   }
@@ -160,12 +167,13 @@ class _HomePageState extends State<HomePage> {
                     disableCenter: true,
                     viewportFraction: 0.3,
                   ),
-                  items: books.map((book) {
+                  items: mostPopularBooks.map((book) {
                     return Builder(
                       builder: (BuildContext context) {
                         return GestureDetector(
                           onTap: () {
-                            navigateToBookDetailPage(context, book);
+                            navigateToBookDetailPage(
+                                context, book, 'Issue Book');
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -197,11 +205,6 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => BookIssueScreen()));
                     }),
                 const SizedBox(height: 10),
-                CenterButton(
-                    buttonColor: const Color(0xFF1B4F72),
-                    buttonText: 'Return a Book',
-                    onPressed: () {}),
-                const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 10),
@@ -210,22 +213,32 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       BottomButton(
-                          containerColor: const Color(0xFF0E6BA8),
-                          number: 17,
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BookListPage(books: books)));
-                          },
-                          text: 'Issued Books'),
+                        containerColor: const Color(0xFF0E6BA8),
+                        number: 17,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookListPage(books: issuedBooks)));
+                        },
+                        text: 'Return an issued Book',
+                        icondata: Icons.book_sharp,
+                      ),
                       const SizedBox(width: 20), // SizedBox(width: 20),
                       BottomButton(
-                          containerColor: const Color(0xFF1B4F72),
-                          number: 23,
-                          onTap: () {},
-                          text: 'Returned Books'),
+                        containerColor: const Color(0xFF0E6BA8),
+                        number: 23,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ReturnBookListPage(
+                                      books: returnedBooks)));
+                        },
+                        text: 'History of Purchases',
+                        icondata: Icons.history,
+                      ),
                     ],
                   ),
                 ),

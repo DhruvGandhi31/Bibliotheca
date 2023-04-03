@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'book.dart';
 
-List<Book> books = [
+List<Book> mostPopularBooks = [
   Book(
     title: 'Wings Of Fire',
     author: 'A P J Abdul Kalam',
