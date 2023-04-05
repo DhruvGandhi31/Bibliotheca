@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context) =>
                                       BookListPage(books: issuedBooks)));
                         },
-                        text: 'Return an issued Book',
+                        text: 'Return Book',
                         icondata: Icons.book_sharp,
                       ),
                       const SizedBox(width: 20), // SizedBox(width: 20),
@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context) => ReturnBookListPage(
                                       books: returnedBooks)));
                         },
-                        text: 'History of Purchases',
+                        text: 'History',
                         icondata: Icons.history,
                       ),
                     ],

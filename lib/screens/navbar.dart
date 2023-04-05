@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../utils/returnbookslist.dart';
+import 'HomePage/Returned Books/returnbooklist.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -27,6 +29,11 @@ class NavBar extends StatelessWidget {
             title: const Text('History'),
             onTap: () {
               // Navigate to your orders screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ReturnBookListPage(books: returnedBooks)));
             },
           ),
           ListTile(
