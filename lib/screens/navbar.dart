@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_management/screens/homepage.dart';
+import 'package:library_management/users/authentication/login_page.dart';
 import '../users/authentication/auth.dart';
 
 class NavBar extends StatelessWidget {
@@ -44,8 +46,12 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: () async {
-              await _auth.signOut();
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ));
             },
           ),
         ],

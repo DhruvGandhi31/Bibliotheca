@@ -7,6 +7,7 @@ import 'package:library_management/users/authentication/auth.dart';
 import '../../screens/homepage.dart';
 import '../../utils/my_button.dart';
 import '../../utils/my_textfield.dart';
+import 'loading.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
   bool signedIn = false;
   String email = '';
   String password = '';
@@ -58,12 +60,15 @@ class _LoginPageState extends State<LoginPage> {
 
   void signUserIn() async {
     if (_formKey.currentState!.validate()) {
-      print(email);
-      print(password);
+      setState(() => loading = true);
 
       dynamic result = await _auth.signInWithEmailAndPassword(email, password);
       if (result == null) {
         Fluttertoast.showToast(msg: "Please check your email and password");
+
+        setState(() {
+          loading = false;
+        });
       } else {
         Fluttertoast.showToast(msg: "Login Successful");
         Navigator.push(
@@ -94,11 +99,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: _LoginUi(context),
-    ));
+    return loading
+        ? Loading()
+        : SafeArea(
+            child: Scaffold(
+            backgroundColor: Colors.grey[300],
+            body: _LoginUi(context),
+          ));
   }
 
   Widget _LoginUi(BuildContext context) {
