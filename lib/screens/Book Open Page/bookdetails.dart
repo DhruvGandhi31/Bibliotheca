@@ -26,7 +26,7 @@ class BookDetailPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.contain,
-                  image: AssetImage(book.image),
+                  image: NetworkImage(book.image),
                 ),
               ),
             ),

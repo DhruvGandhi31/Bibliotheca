@@ -297,7 +297,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                             controller: phoneNumberController,
                             validator: (value) => value!.isEmpty ||
-                                    (value.length == 10)
+                                    (value.length < 10 || value.length > 10)
                                 ? popMsg('Please enter your phone no. properly')
                                 : null,
                             // focusNode: _focusNode,

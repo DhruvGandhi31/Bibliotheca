@@ -43,7 +43,7 @@ class ReturnBookListPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: AssetImage(books[index].image),
+                        image: NetworkImage(books[index].image),
                         fit: BoxFit.cover,
                       ),
                     ),

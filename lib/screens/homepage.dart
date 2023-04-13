@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:library_management/screens/searchpage.dart';
+import 'package:get/get.dart';
+
 import '../utils/book.dart';
 import '../utils/bottombutton.dart';
 import '../utils/issuedbookslist.dart';
 import '../utils/mostpopbookslist.dart';
 import '../utils/returnbookslist.dart';
+import '../utils/centerbuttons.dart';
+
 import 'Book Open Page/bookdetails.dart';
 import 'HomePage/Issued Books/bookslist.dart';
 import 'HomePage/Issue a Book/issuebooks.dart';
 import 'HomePage/Returned Books/returnbooklist.dart';
 import 'messages.dart';
 import 'navbar.dart';
-import '../utils/centerbuttons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -87,21 +91,32 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SizedBox(height: 10),
                 Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search by ISBN...',
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(),
+                          ));
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 7),
+                            Icon(Icons.search),
+                            SizedBox(width: 4),
+                            Text('Search...'),
+                          ],
+                        )),
                   ),
                 ),
                 CarouselSlider(
