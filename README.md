@@ -6,3 +6,6 @@ To test backend and connect to MySQL first you need to go to the Nodejs_JWT fold
 
 ## Search Among Books
 The search feature has been added to the app. You can search by book name or author's name. You can also search by keywords of a book. Also it searchs locally i.e. it find the books which are locally added into the app.
+
+## Other changes
+The image is loaded throuogh URL instead of assets.
