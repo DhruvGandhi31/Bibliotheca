@@ -7,6 +7,17 @@ import '../users/authentication/auth.dart';
 class NavBar extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Future<void> _signOut(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      ),
+    );
+  }
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,13 +53,30 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.logout),
-            title: Text('Log Out'),
+            title: const Text('Log Out'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Confirm Log Out'),
+                    content: Text('Are you sure you want to log out?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Yes'),
+                        onPressed: () {
+                          _signOut(context);
+                        },
+                      ),
+                      TextButton(
+                        child: Text('No'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
             },
           ),
