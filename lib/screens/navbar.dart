@@ -66,6 +66,7 @@ class NavBar extends StatelessWidget {
                         child: Text('Yes'),
                         onPressed: () {
                           _signOut(context);
+                          Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
