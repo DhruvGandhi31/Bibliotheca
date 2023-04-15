@@ -25,7 +25,12 @@ class _BookListPageState extends State<BookListPage> {
       Fluttertoast.showToast(msg: 'Book returned to Library');
     });
     updateReturnedBooks(tot_books, bookId);
+
     Navigator.pop(context);
+  }
+
+  void addToHistory(String bookId) {
+    setState(() {});
   }
 
   void navigateToBookDetailPage(BuildContext context, Book book) {

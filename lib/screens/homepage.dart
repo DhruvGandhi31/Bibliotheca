@@ -51,17 +51,6 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_8.png',
   ];
 
-  void IssueOrReturn(String bookId, String text) {
-    if (text == 'Issue Book') {
-      toIssueBook(bookId);
-    } else if (text == 'Return Book') {
-      toReturnBook(bookId);
-    } else {
-      print('Error occured');
-      Fluttertoast.showToast(msg: 'Error occured');
-    }
-  }
-
   //Function for issuing a book, this books will be added  to issued book list
   //We can view by tapping on 'Return a Book' and inside the booklist these books will be listed
   void toIssueBook(String bookId) {
@@ -78,15 +67,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void toReturnBook(String bookId) {}
-
   void navigateToBookDetailPage(BuildContext context, Book book, String text) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BookDetailPage(
             onTap: () {
-              IssueOrReturn(book.bookId, text);
+              toIssueBook(book.bookId);
             },
             lastbutton: text,
             book: book),
