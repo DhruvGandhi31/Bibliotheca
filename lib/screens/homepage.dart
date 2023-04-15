@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -51,6 +53,27 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_8.png',
   ];
 
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to exit?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () => exit(0),
+                child: Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   //Function for issuing a book, this books will be added  to issued book list
   //We can view by tapping on 'Return a Book' and inside the booklist these books will be listed
   void toIssueBook(String bookId) {
@@ -83,204 +106,208 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBar(),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF303F9F),
-        centerTitle: true,
-        title: Text('Library'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NoticeBoardScreen()),
-              );
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Icon(Icons.message, size: 28, color: Colors.white),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        drawer: NavBar(),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF303F9F),
+          centerTitle: true,
+          title: Text('Library'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NoticeBoardScreen()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(Icons.message, size: 28, color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      backgroundColor: const Color(0xFFAAD9FF),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 10),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchPage(),
-                          ));
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 7),
-                            Icon(Icons.search),
-                            SizedBox(width: 4),
-                            Text('Search...'),
-                          ],
-                        )),
-                  ),
-                ),
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200.0,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio:
-                        16 / 9, // Change this to match your image aspect ratio
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    viewportFraction: 1,
-                  ),
-                  items: images.map((imagePath) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(top: 20),
-                          // EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              imagePath,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
+          ],
+        ),
+        backgroundColor: const Color(0xFFAAD9FF),
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchPage(),
+                            ));
                       },
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(top: 10, left: 10),
-                  child: const Text(
-                    'Most Popular Books',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.none,
-                      // remove the default underline
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(width: 7),
+                              Icon(Icons.search),
+                              SizedBox(width: 4),
+                              Text('Search...'),
+                            ],
+                          )),
                     ),
-                    textAlign: TextAlign.left,
                   ),
-                ),
-                const SizedBox(height: 10),
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 150.0,
-                    enlargeCenterPage: false,
-                    autoPlay: false,
-                    aspectRatio: 2 / 3,
-                    padEnds: false,
-                    enableInfiniteScroll: false,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    disableCenter: true,
-                    viewportFraction: 0.3,
-                  ),
-                  items: mostPopularBooks.map((book) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return GestureDetector(
-                          onTap: () {
-                            navigateToBookDetailPage(
-                                context, book, 'Issue Book');
-                          },
-                          child: Container(
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200.0,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      aspectRatio: 16 /
+                          9, // Change this to match your image aspect ratio
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: true,
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      viewportFraction: 1,
+                    ),
+                    items: images.map((imagePath) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                            margin: const EdgeInsets.only(top: 20),
+                            // EdgeInsets.symmetric(horizontal: 5.0),
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0),
+                              borderRadius: BorderRadius.circular(15),
                               child: Image.asset(
-                                book.image,
+                                imagePath,
                                 fit: BoxFit.contain,
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 20),
-                CenterButton(
-                    buttonColor: const Color(0xFF0E6BA8),
-                    buttonText: 'Issue a Book',
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BookIssueScreen()));
-                    }),
-                const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10),
-                  color: Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BottomButton(
-                        containerColor: const Color(0xFF0E6BA8),
-                        number: issuedBooksList.length,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      BookListPage(books: issuedBooksList)));
+                          );
                         },
-                        text: 'Return a book',
-                        icondata: Icons.book_sharp,
-                      ),
-                      const SizedBox(width: 20), // SizedBox(width: 20),
-                      BottomButton(
-                        containerColor: const Color(0xFF0E6BA8),
-                        number: returnedBooks.length,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReturnBookListPage(
-                                      books: returnedBooks)));
-                        },
-                        text: 'History',
-                        icondata: Icons.history,
-                      ),
-                    ],
+                      );
+                    }).toList(),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, left: 10),
+                    child: const Text(
+                      'Most Popular Books',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.none,
+                        // remove the default underline
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 150.0,
+                      enlargeCenterPage: false,
+                      autoPlay: false,
+                      aspectRatio: 2 / 3,
+                      padEnds: false,
+                      enableInfiniteScroll: false,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      disableCenter: true,
+                      viewportFraction: 0.3,
+                    ),
+                    items: mostPopularBooks.map((book) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: () {
+                              navigateToBookDetailPage(
+                                  context, book, 'Issue Book');
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 3.0),
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0),
+                                child: Image.asset(
+                                  book.image,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 20),
+                  CenterButton(
+                      buttonColor: const Color(0xFF0E6BA8),
+                      buttonText: 'Issue a Book',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookIssueScreen()));
+                      }),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10),
+                    color: Colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        BottomButton(
+                          containerColor: const Color(0xFF0E6BA8),
+                          number: issuedBooksList.length,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BookListPage(books: issuedBooksList)));
+                          },
+                          text: 'Return a book',
+                          icondata: Icons.book_sharp,
+                        ),
+                        const SizedBox(width: 20), // SizedBox(width: 20),
+                        BottomButton(
+                          containerColor: const Color(0xFF0E6BA8),
+                          number: returnedBooks.length,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ReturnBookListPage(
+                                        books: returnedBooks)));
+                          },
+                          text: 'History',
+                          icondata: Icons.history,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
