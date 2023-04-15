@@ -4,6 +4,7 @@ import '../../Book Open Page/bookdetails.dart';
 
 class ReturnBookListPage extends StatelessWidget {
   final List<Book> books;
+  static String routeName = 'returnBookList';
 
   ReturnBookListPage({required this.books});
 
@@ -21,8 +22,10 @@ class ReturnBookListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text('Book List'),
       ),
+      backgroundColor: const Color(0xFFAAD9FF),
       body: ListView.builder(
         itemCount: books.length,
         itemBuilder: (BuildContext context, int index) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:library_management/utils/issuedbookslist.dart';
 
 import '../utils/book.dart';
 import 'Book Open Page/bookdetails.dart';
@@ -9,39 +11,19 @@ import '../model/loaded_books.dart';
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
+  static String routeName = 'searchPage';
+
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // addData() async {
-  //   for (var element in books) {
-  //     FirebaseFirestore.instance
-  //         .collection('Books')
-  //         .add(element as Map<String, dynamic>);
-  //   }
-  //   print('All data added');
-  // }
-
+  List<Book> availableBooks = books;
+  List<Book> issuedBooksFromSearchPage = [];
+  List<Book> returnedBooks = [];
+  List<Book> display_books = List.from(books);
   String name = "";
   TextEditingController _searchController = TextEditingController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _searchController.addListener(_onSearchChanged);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _searchController.removeListener(_onSearchChanged);
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-  // _onSearchChanged() {
-  //   print(_searchController.text);
-  // }
-  List<Book> display_books = List.from(books);
 
   void updateList(String value) {
     setState(() {
@@ -53,12 +35,50 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  void navigateToBookDetailPage(BuildContext context, Book book) {
+  void IssueOrReturn(String bookId, String text) {
+    if (text == 'Issue Book') {
+      toIssueBook(bookId);
+    } else if (text == 'Return Book') {
+      toReturnBook(bookId);
+    } else {
+      print('Error occured');
+      Fluttertoast.showToast(msg: 'Error occured');
+    }
+  }
+
+  //Function for issuing a book, this books will be added  to issued book list
+  //We can view by tapping on 'Return a Book' and inside the booklist these books will be listed
+  void toIssueBook(String bookId) {
+    final alreadyIssued =
+        issuedBooks.indexWhere((book) => book.bookId == bookId);
+    if (alreadyIssued >= 0) {
+      Fluttertoast.showToast(msg: 'The book is already issued');
+    } else {
+      setState(() {
+        issuedBooks.add(books.firstWhere((book) => book.bookId == bookId));
+      });
+      sendToIssuedBookList();
+      Fluttertoast.showToast(
+          msg: 'Your book has been issued, please collect it from library.');
+    }
+  }
+
+  void sendToIssuedBookList() {
+    updateIssuedBooks(issuedBooksFromSearchPage);
+  }
+
+  void toReturnBook(String bookId) {}
+
+  void navigateToBookDetailPage(BuildContext context, Book book, String text) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            BookDetailPage(onTap: () {}, lastbutton: 'Issue book', book: book),
+        builder: (context) => BookDetailPage(
+            onTap: () {
+              IssueOrReturn(book.bookId, text);
+            },
+            lastbutton: text,
+            book: book),
       ),
     );
   }
@@ -109,9 +129,10 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      navigateToBookDetailPage(context, display_books[index]);
+                      navigateToBookDetailPage(
+                          context, display_books[index], 'Issue Book');
                       // Handle book tap event here
-                      print('Book ${display_books[index].title} tapped!');
+                      // print('Book ${display_books[index].title} tapped!');
                     },
                     child: Padding(
                       padding: EdgeInsets.all(8.0),

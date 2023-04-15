@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:library_management/screens/searchpage.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ import '../utils/issuedbookslist.dart';
 import '../utils/mostpopbookslist.dart';
 import '../utils/returnbookslist.dart';
 import '../utils/centerbuttons.dart';
+import '../model/loaded_books.dart';
 
 import 'Book Open Page/bookdetails.dart';
 import 'HomePage/Issued Books/bookslist.dart';
@@ -18,11 +20,16 @@ import 'messages.dart';
 import 'navbar.dart';
 
 class HomePage extends StatefulWidget {
+  static String routeName = 'homepage';
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Book> availableBooks = books;
+  List<Book> issuedBooksList = issuedBooks;
+  List<Book> returnedBooks = [];
+
   List<String> images = [
     'assets/images/1.png',
     'assets/images/2.png',
@@ -44,13 +51,42 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image_8.png',
   ];
 
+  void IssueOrReturn(String bookId, String text) {
+    if (text == 'Issue Book') {
+      toIssueBook(bookId);
+    } else if (text == 'Return Book') {
+      toReturnBook(bookId);
+    } else {
+      print('Error occured');
+      Fluttertoast.showToast(msg: 'Error occured');
+    }
+  }
+
+  //Function for issuing a book, this books will be added  to issued book list
+  //We can view by tapping on 'Return a Book' and inside the booklist these books will be listed
+  void toIssueBook(String bookId) {
+    final alreadyIssued =
+        issuedBooksList.indexWhere((book) => book.bookId == bookId);
+    if (alreadyIssued >= 0) {
+      Fluttertoast.showToast(msg: 'The book is already issued');
+    } else {
+      setState(() {
+        issuedBooksList.add(books.firstWhere((book) => book.bookId == bookId));
+      });
+      Fluttertoast.showToast(
+          msg: 'Your book has been issued, please collect it from library.');
+    }
+  }
+
+  void toReturnBook(String bookId) {}
+
   void navigateToBookDetailPage(BuildContext context, Book book, String text) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BookDetailPage(
             onTap: () {
-              //Dhruv bhai idhar hame daalna hai, book issue karne ke baad kya karna hoga
+              IssueOrReturn(book.bookId, text);
             },
             lastbutton: text,
             book: book),
@@ -229,21 +265,21 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       BottomButton(
                         containerColor: const Color(0xFF0E6BA8),
-                        number: 17,
+                        number: issuedBooksList.length,
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      BookListPage(books: issuedBooks)));
+                                      BookListPage(books: issuedBooksList)));
                         },
-                        text: 'Return an issued Book',
+                        text: 'Return a book',
                         icondata: Icons.book_sharp,
                       ),
                       const SizedBox(width: 20), // SizedBox(width: 20),
                       BottomButton(
                         containerColor: const Color(0xFF0E6BA8),
-                        number: 23,
+                        number: returnedBooks.length,
                         onTap: () {
                           Navigator.push(
                               context,
@@ -251,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context) => ReturnBookListPage(
                                       books: returnedBooks)));
                         },
-                        text: 'History of Purchases',
+                        text: 'History',
                         icondata: Icons.history,
                       ),
                     ],

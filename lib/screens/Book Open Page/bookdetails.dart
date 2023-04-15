@@ -14,8 +14,10 @@ class BookDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text(book.title),
       ),
+      backgroundColor: const Color(0xFFAAD9FF),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

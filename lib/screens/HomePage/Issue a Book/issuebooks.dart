@@ -5,9 +5,11 @@ class BookIssueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text('Issue a Book'),
         centerTitle: true,
       ),
+      backgroundColor: const Color(0xFFAAD9FF),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: GridView.count(

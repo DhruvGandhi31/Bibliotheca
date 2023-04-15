@@ -70,6 +70,17 @@ List<Book> books = [
   ),
   Book(
     bookId: '7',
+    title: 'Rich Dad Poor Dad',
+    author: 'Robert T Kiyosaki',
+    publishedDate: '1997',
+    image: 'assets/images/image_7.png',
+    description:
+        ' "Rich Dad Poor Dad" is a personal finance book written by Robert Kiyosaki, based on his experiences growing up with two different fathers, one rich and one poor, highlighting the differences in their financial mindset and providing insights on how to achieve financial success through investing, entrepreneurship, and financial education.',
+    price: '340',
+    availability: true,
+  ),
+  Book(
+    bookId: '22',
     title: 'The Alchemist',
     author: 'Paulo Coelho',
     publishedDate: '1988',

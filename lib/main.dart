@@ -1,5 +1,7 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:library_management/screens/HomePage/Returned%20Books/returnbooklist.dart';
+import 'package:library_management/screens/searchpage.dart';
 import 'screens/homepage.dart';
 import 'screens/splash_screen.dart';
 import 'users/authentication/login_page.dart';
@@ -21,12 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-      // home: HomePage(),
+      // home: SplashScreen(),
+      home: HomePage(),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         RegisterPage.routeName: (context) => const RegisterPage(),
-        // HomePage.routeName:(context) => HomePage(),
+        HomePage.routeName: (context) => HomePage(),
+        SearchPage.routeName: (context) => SearchPage(),
+        // ReturnBookListPage.routeName:(context) => ReturnBookListPage(books: books)
       },
     );
   }
