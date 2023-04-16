@@ -134,6 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Fluttertoast.showToast(msg: "Poblem occured during signup");
         } else {
           Fluttertoast.showToast(msg: "Congratulations! you are registered");
+          Navigator.of(context).pop();
         }
       }
     } else {
