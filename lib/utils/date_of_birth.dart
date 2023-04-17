@@ -50,7 +50,7 @@ class _DateOfBirthPickerState extends State<DateOfBirthPicker> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade400),
           ),
-          fillColor: Colors.grey.shade200,
+          fillColor: Colors.white,
           filled: true,
           prefixIcon: const Icon(Icons.calendar_today),
           hintText: 'Date of Birth',
