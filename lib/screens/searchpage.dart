@@ -109,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextField(
-                  onChanged: (value) => updateList(value),
+                  onChanged: (value) => updateList(value.toLowerCase()),
                   controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search...',
