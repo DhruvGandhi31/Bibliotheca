@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:library_management/screens/homepage.dart';
 import 'package:library_management/users/authentication/login_page.dart';
 import '../users/authentication/auth.dart';
+import 'NavBar/subscriptions.dart';
+import 'NavBar/yourprofile.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,6 +36,8 @@ class NavBar extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Your Profile'),
             onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()));
               // Navigate to your profile screen
             },
           ),
@@ -48,6 +52,8 @@ class NavBar extends StatelessWidget {
             leading: Icon(Icons.subscriptions),
             title: Text('Subscriptions'),
             onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SubscriptionPage()));
               // Navigate to subscriptions screen
             },
           ),
