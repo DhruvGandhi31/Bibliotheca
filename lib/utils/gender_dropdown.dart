@@ -25,9 +25,9 @@ class _GenderPickerState extends State<GenderPicker> {
             borderSide: BorderSide(color: Colors.white),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderSide: BorderSide(color: Colors.white),
           ),
-          fillColor: Colors.grey.shade200,
+          fillColor: Colors.white,
           filled: true,
           prefixIcon: const Icon(Icons.person),
           hintText: 'Gender',

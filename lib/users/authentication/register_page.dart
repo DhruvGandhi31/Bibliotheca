@@ -149,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: const Color(0xFFAAD9FF),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -161,13 +161,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 // logo
                 const Icon(
+                  color: Color(0xFF303F9F),
                   Icons.app_registration,
                   size: 100,
                 ),
                 Text(
                   'New User Registration',
                   style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Color(0xFF303F9F),
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),
@@ -212,7 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon:
                                   const Icon(Icons.account_circle_outlined),
@@ -270,7 +271,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.email_outlined),
                               hintText: 'Email',
@@ -310,7 +311,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.phone_outlined),
                               hintText: 'Phone Number',
@@ -350,7 +351,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.email),
                               hintText: 'Student ID',
@@ -390,7 +391,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.lock_open),
                               hintText: 'Enter your Password',
@@ -431,7 +432,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade400),
                               ),
-                              fillColor: Colors.grey.shade200,
+                              fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.lock),
                               hintText: 'Confirm Password',

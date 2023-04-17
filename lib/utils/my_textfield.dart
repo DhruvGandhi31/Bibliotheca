@@ -59,9 +59,11 @@ class _MyTextFieldState extends State<MyTextField> {
             borderSide: BorderSide(color: Colors.white),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderSide: BorderSide(
+              color: Colors.blue.shade100,
+            ),
           ),
-          fillColor: Colors.grey.shade200,
+          fillColor: Colors.blue.shade100,
           filled: true,
           prefixIcon: widget.sel_icon,
           hintText: widget.hintText,

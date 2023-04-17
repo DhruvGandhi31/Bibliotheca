@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
         ? Loading()
         : SafeArea(
             child: Scaffold(
-            backgroundColor: Colors.grey[300],
+            backgroundColor: const Color(0xFFAAD9FF),
             body: _LoginUi(context),
           ));
   }
@@ -119,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
 
             // logo
             const Icon(
+              color: const Color(0xFF303F9F),
               Icons.business_center,
               size: 100,
             ),
@@ -129,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               'Welcome back!!',
               style: TextStyle(
-                  color: Colors.grey[700],
+                  color: const Color(0xFF303F9F),
                   fontSize: 28,
                   fontWeight: FontWeight.bold),
             ),
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade400),
                   ),
-                  fillColor: Colors.grey.shade200,
+                  fillColor: Colors.white,
                   filled: true,
                   prefixIcon: const Icon(Icons.account_circle_outlined),
                   hintText: 'Email',
@@ -201,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade400),
                   ),
-                  fillColor: Colors.grey.shade200,
+                  fillColor: Colors.white,
                   filled: true,
                   prefixIcon: const Icon(Icons.lock),
                   hintText: 'Password',
