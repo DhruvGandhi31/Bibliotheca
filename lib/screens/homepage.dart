@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,17 +77,37 @@ class _HomePageState extends State<HomePage> {
 
   //Function for issuing a book, this books will be added  to issued book list
   //We can view by tapping on 'Return a Book' and inside the booklist these books will be listed
-  void toIssueBook(String bookId) {
+
+  void toIssueBook(String bookId) async {
     final alreadyIssued =
         issuedBooksList.indexWhere((book) => book.bookId == bookId);
     if (alreadyIssued >= 0) {
       Fluttertoast.showToast(msg: 'The book is already issued');
     } else {
-      setState(() {
-        issuedBooksList.add(books.firstWhere((book) => book.bookId == bookId));
-      });
-      Fluttertoast.showToast(
-          msg: 'Your book has been issued, please collect it from library.');
+      final book = books.firstWhere((book) => book.bookId == bookId);
+      final url = 'http://localhost:3000/api/issue-book';
+      final response = await http.post(
+        Uri.parse(url),
+        body: {
+          'bookId': book.bookId,
+          'name': book.title,
+          'author': book.author,
+          'publishedDate': book.publishedDate,
+          'image': book.image,
+          'description': book.description,
+          'price': book.price,
+          'availability': book.availability.toString(),
+        },
+      );
+      if (response.statusCode == 200) {
+        setState(() {
+          issuedBooksList.add(book);
+        });
+        Fluttertoast.showToast(
+            msg: 'Your book has been issued, please collect it from library.');
+      } else {
+        Fluttertoast.showToast(msg: 'Failed to issue book');
+      }
     }
   }
 
