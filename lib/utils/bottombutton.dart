@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BottomButton extends StatelessWidget {
+class BottomButton extends StatefulWidget {
   final VoidCallback onTap;
   final String text;
   final int number;
@@ -17,14 +17,19 @@ class BottomButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<BottomButton> createState() => _BottomButtonState();
+}
+
+class _BottomButtonState extends State<BottomButton> {
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: onTap,
+        onTap: widget.onTap,
         child: Container(
           height: 120,
           decoration: BoxDecoration(
-            color: containerColor,
+            color: widget.containerColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -33,7 +38,7 @@ class BottomButton extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: Icon(
-                  icondata,
+                  widget.icondata,
                   color: Colors.white,
                   size: 22.0,
                 ),
@@ -43,7 +48,7 @@ class BottomButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    number.toString(),
+                    widget.number.toString(),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -52,7 +57,7 @@ class BottomButton extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    text,
+                    widget.text,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

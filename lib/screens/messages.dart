@@ -5,8 +5,10 @@ class NoticeBoardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text('Notice Board'),
       ),
+      backgroundColor: const Color(0xFFAAD9FF),
       body: ListView(
         children: [
           _NoticeCard(

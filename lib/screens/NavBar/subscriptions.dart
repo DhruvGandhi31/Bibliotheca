@@ -64,7 +64,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFAAD9FF),
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text('Subscription'),
       ),
       body: SingleChildScrollView(
@@ -90,7 +92,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   padding: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
+                    color: Colors.blue[100],
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -223,9 +225,7 @@ class SubscriptionPlanTile extends StatelessWidget {
       title: Text(
         subscriptionPlan.name,
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-        ),
+            fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.black),
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,16 +234,14 @@ class SubscriptionPlanTile extends StatelessWidget {
           Text(
             '${subscriptionPlan.price}/month',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-            ),
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+                color: Colors.black),
           ),
           SizedBox(height: 8.0),
           Text(
             subscriptionPlan.description,
-            style: TextStyle(
-              fontSize: 14.0,
-            ),
+            style: TextStyle(fontSize: 14.0, color: Colors.black),
           ),
           SizedBox(height: 8.0),
           Column(
@@ -252,9 +250,7 @@ class SubscriptionPlanTile extends StatelessWidget {
               for (String feature in subscriptionPlan.features)
                 Text(
                   '- $feature',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(fontSize: 14.0, color: Colors.black),
                 ),
             ],
           ),

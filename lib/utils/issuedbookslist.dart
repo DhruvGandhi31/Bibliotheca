@@ -19,3 +19,7 @@ List<Book> updateReturnedBooks(List<Book> books, String bookId) {
   print(numIssuedBooks);
   return issuedBooks;
 }
+
+int retrun_num_issued_books() {
+  return numIssuedBooks = issuedBooks.length;
+}

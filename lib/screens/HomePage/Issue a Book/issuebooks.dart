@@ -7,6 +7,7 @@ class BookIssueScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFAAD9FF),
       appBar: AppBar(
+        backgroundColor: Color(0xFF303F9F),
         title: Text('Issue a Book'),
         centerTitle: true,
       ),

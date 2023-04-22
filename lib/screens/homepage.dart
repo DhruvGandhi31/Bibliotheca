@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   List<Book> availableBooks = books;
   List<Book> issuedBooksList = issuedBooks;
   List<Book> returnedBooks = [];
+  int num_issued_books = 0;
 
   List<String> images = [
     'assets/images/1.png',
@@ -85,10 +87,11 @@ class _HomePageState extends State<HomePage> {
       Fluttertoast.showToast(msg: 'The book is already issued');
     } else {
       final book = books.firstWhere((book) => book.bookId == bookId);
-      final url = 'http://localhost:3000/api/issue-book';
+      final url = 'http://localhost:3000/issued_books';
       final response = await http.post(
         Uri.parse(url),
-        body: {
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
           'bookId': book.bookId,
           'name': book.title,
           'author': book.author,
@@ -97,11 +100,13 @@ class _HomePageState extends State<HomePage> {
           'description': book.description,
           'price': book.price,
           'availability': book.availability.toString(),
-        },
+        }),
       );
+
       if (response.statusCode == 200) {
         setState(() {
           issuedBooksList.add(book);
+          // num_issued_books = issuedBooksList.length;
         });
         Fluttertoast.showToast(
             msg: 'Your book has been issued, please collect it from library.');
@@ -268,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(0),
-                                child: Image.asset(
+                                child: Image.network(
                                   book.image,
                                   fit: BoxFit.contain,
                                 ),
@@ -299,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         BottomButton(
                           containerColor: const Color(0xFF0E6BA8),
-                          number: issuedBooksList.length,
+                          number: retrun_num_issued_books(),
                           onTap: () {
                             Navigator.push(
                                 context,

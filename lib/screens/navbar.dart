@@ -23,6 +23,8 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      surfaceTintColor: Color(0xFF303F9F),
+      backgroundColor: Color(0xFFAAD9FF),
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(

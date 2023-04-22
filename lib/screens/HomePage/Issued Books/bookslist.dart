@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:library_management/utils/issuedbookslist.dart';
+import 'package:http/http.dart' as http;
 // import '../../../model/loaded_books.dart';
 import '../../../utils/book.dart';
 import '../../../utils/centerbuttons.dart';
 import '../../Book Open Page/bookdetails.dart';
 import '../Issue a Book/issuebooks.dart';
+import 'package:intl/intl.dart';
 
 class BookListPage extends StatefulWidget {
   final List<Book> books;
@@ -18,14 +20,26 @@ class BookListPage extends StatefulWidget {
 
 class _BookListPageState extends State<BookListPage> {
   List<Book> tot_books = issuedBooks;
+  final dueDate = DateTime.now().add(Duration(days: 21));
 
-  void returnBook(String bookId) {
+  Future<void> returnBook(String bookId) async {
     setState(() {
       tot_books.remove(tot_books.firstWhere((book) => book.bookId == bookId));
       Fluttertoast.showToast(msg: 'Book returned to Library');
     });
     updateReturnedBooks(tot_books, bookId);
+    final url = 'http://localhost:3000/api/return-book/$bookId';
+    final response = await http.delete(Uri.parse(url));
 
+    if (response.statusCode == 200) {
+      setState(() {
+        tot_books.remove(tot_books.firstWhere((book) => book.bookId == bookId));
+      });
+      Fluttertoast.showToast(msg: 'Book returned to Library');
+      Navigator.pop(context);
+    } else {
+      Fluttertoast.showToast(msg: 'Failed to return book');
+    }
     Navigator.pop(context);
   }
 
@@ -136,6 +150,20 @@ class _BookListPageState extends State<BookListPage> {
                                   color: Colors.grey[600],
                                 ),
                               ),
+                              SizedBox(height: 15),
+                              Row(
+                                // crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    DateFormat.yMMMd().format(dueDate),
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
