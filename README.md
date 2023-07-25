@@ -1,4 +1,4 @@
-# Library Management System
+# Bibliotheca (Library Management System - User side)
 
 ## Guide for node js backend
 
