@@ -1,3 +1,4 @@
+![6](https://github.com/DhruvGandhi31/Bibliotheca/assets/96539582/4b3988f3-7559-4465-a5d2-37ac6726817d)
 # Bibliotheca (Library Management System - User side)
 
 ## Guide for node js backend
@@ -10,3 +11,9 @@ The search feature has been added to the app. You can search by book name or aut
 ## Other changes
 1) The image is loaded throuogh URL instead of assets.
 2) Additional Books are added.
+
+## Images of the App
+<img src="https://github.com/DhruvGandhi31/Bibliotheca/assets/96539582/ae2f6b3f-b586-45b6-b5bc-986a5f07fa8e" width=300px>
+
+
+
