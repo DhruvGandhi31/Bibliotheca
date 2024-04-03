@@ -1,4 +1,19 @@
 # Bibliotheca (Library Management System - User side)
+This project is a Flutter-based application designed to facilitate book browsing, borrowing, and returning functionalities for users. MongoDB is utilized as the database management system to store book information and user borrowing records.
+
+Key Features:
+
+- Flutter-based Application: The frontend of the application is developed using Flutter, a popular framework for building cross-platform mobile applications. Flutter allows for a consistent user experience across both Android and iOS devices.
+
+- Book Browsing, Borrowing, and Returning: Users can browse the available books in the system, borrow books they are interested in, and return books once they have finished reading them. These functionalities are essential for managing a library system efficiently.
+
+- MongoDB for Database Management: MongoDB, a NoSQL database, is chosen for database management. It provides flexibility in storing various types of data, which is advantageous for managing diverse book information and user records.
+
+- Robust Search Algorithm: A robust search algorithm is implemented to enable users to search for books by name and author. This feature enhances the user experience by allowing users to quickly find the books they are interested in.
+
+- Node.js and Express.js Backend: The backend functionality of the application is implemented using Node.js, a server-side JavaScript runtime, and Express.js, a web application framework for Node.js. These technologies enable the implementation of server-side logic and routing for handling requests from the Flutter frontend.
+
+- JSON for Data Exchange: JSON (JavaScript Object Notation) is used for data exchange between the frontend and backend components of the application. JSON provides a lightweight and human-readable format for transmitting data, making it ideal for communication between different parts of the system.
 
 ## Guide for node js backend
 
